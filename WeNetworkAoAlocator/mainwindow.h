@@ -27,8 +27,10 @@ class MainWindow : public QMainWindow
 
 
 public:
+
+
     QList<QList<QString>> datalog;
-    QString locatortopic[4] = {"silabs/aoa/angle/ble-pd-0C4314F02B3A","silabs/aoa/angle/ble-pd-0C4314EF5CEC","",""};
+    QString locatortopic[4] = {"silabs/aoa/angle/ble-pd-0C4314F02B3A","silabs/aoa/angle/ble-pd-0C4314EF5CEC","silabs/aoa/angle/ble-pd-0C4314EF67A4",""};
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     refreshthread *thread;

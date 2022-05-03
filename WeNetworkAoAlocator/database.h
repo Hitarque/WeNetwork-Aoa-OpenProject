@@ -5,12 +5,16 @@
 #include "asset.h"
 #include <QList>
 #include <QDebug>
+#include <QFile>
 
 class database
 {
 private:
 QList<Locator> locators;
 QList<Asset> assets;
+
+QList<QList<double>> alldatafromcsv;
+
 int numberofloctor=0;
 int numberofasset=0;
 int currentlocator=0;
@@ -101,5 +105,35 @@ public:
     int returnassetnumber(){
         return numberofasset;
     }
+
+    int returnnumberofdatastoredinasset(){
+        return assets[0].memory.length();
+    }
+
+    void insertinmemoryasset(double x,double y){
+        assets[0].memory.append({x,y});
+    };
+
+    QList<double> returnrowmemoryasset(int row){
+        return assets[0].memory[row];
+    }
+
+    int linebyline(QString path)
+    {
+        QFile inputFile(path);
+        if (inputFile.open(QIODevice::ReadOnly))
+        {
+           QTextStream in(&inputFile);
+           while (!in.atEnd())
+           {
+              QString line = in.readLine();
+              QStringList  strs=  line.split(";");
+                     alldatafromcsv.append({strs[1].toDouble(),strs[2].toDouble()});
+           }
+           inputFile.close();
+        }
+    }
+
+
 };
 #endif // DATABASE_H

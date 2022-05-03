@@ -143,44 +143,44 @@ vector<double> Code_distance::asset_position(std::vector<vector<double>> data_lo
     nombre_locator = data_locator.size();
 
     // S'il n'y a que deux locators, il n'y a pas besoin de process le résultat puisqu'il n'y a qu'une intersection
- //   if (nombre_locator >= 3) {
-//        // On calcul toutes les intersections à l'aide des datas entrées pour chaque locator
-//        for (int i = 0; i < nombre_locator - 1; i++) {
-//            for (int j = i + 1; j < nombre_locator; j++) {
-//                std::vector<double> new_intersection = intersection(
-//                    data_locator[i][0], data_locator[i][1], data_locator[i][2],
-//                    data_locator[j][0], data_locator[j][1], data_locator[j][2]);
-//                coord_intersections.push_back(new_intersection);
-//            }
-//        }
-//        // On récupère toutes les distances entre chaque intersection
-//        table_distance = distance(coord_intersections);
-//        double tolerance = 0;
-//        // On récupère un vecteur avec es distances entre le point de référence et les autres
-//        std::vector<double> distances_point_reference = table_distance[point_moyen(table_distance)];
-//        size_t length = distances_point_reference.size();
-//        /* On calcul la tolérance en faisant la moyenne de toutes les distances du point de référence
-//        On ne prend pas en compte le point le plus éloigné car ce point créer souvent beaucoup d'erreur */
-//        for (int i = 0; i < length; i++) {
-//            if (distances_point_reference[i] != *std::max_element(distances_point_reference.begin(), distances_point_reference.end()) && distances_point_reference[i] != 0) {
-//                tolerance += distances_point_reference[i];
-//            }
-//        }
-//        /* On divise le total par le nombre de distances utilisées -2 pour ne pas compter
-//        la distance avec lui même et la distance avec le point le plus éloigné*/
-//        tolerance /= coord_intersections.size() - 2;
-//        // Plus la tolérance est basse, moins il y a d'erreur
-//        qDebug() << "Erreur : " << tolerance << " m\n";
-//        std::vector<vector<double>> coordonnees_finale;
-//        // On récupère une liste des points voisins
-//        std::vector<int> points_voisins = voisins(table_distance[point_moyen(table_distance)], tolerance * 1.5);
-//        for (int i = 0; i < points_voisins.size(); i++) {
-//            // On ajoute au vecteur coord_finale toutes les coordonnées des intersections gardées
-//            coordonnees_finale.push_back(coord_intersections[points_voisins[i]]);
-//        }
-//        // On fait la moyenne des coordonnées des intersections gardées
-//        std::vector<double> resultat = moyenne_coord(coordonnees_finale);
-//    }
+    if (nombre_locator >= 3) {
+        // On calcul toutes les intersections à l'aide des datas entrées pour chaque locator
+        for (int i = 0; i < nombre_locator - 1; i++) {
+            for (int j = i + 1; j < nombre_locator; j++) {
+                std::vector<double> new_intersection = intersection(
+                    data_locator[i][0], data_locator[i][1], data_locator[i][2],
+                    data_locator[j][0], data_locator[j][1], data_locator[j][2]);
+                coord_intersections.push_back(new_intersection);
+            }
+        }
+        // On récupère toutes les distances entre chaque intersection
+        table_distance = distance(coord_intersections);
+        double tolerance = 1.5;
+        // On récupère un vecteur avec es distances entre le point de référence et les autres
+        std::vector<double> distances_point_reference = table_distance[point_moyen(table_distance)];
+        size_t length = distances_point_reference.size();
+        /* On calcul la tolérance en faisant la moyenne de toutes les distances du point de référence
+        On ne prend pas en compte le point le plus éloigné car ce point créer souvent beaucoup d'erreur */
+        for (int i = 0; i < length; i++) {
+            if (distances_point_reference[i] != *std::max_element(distances_point_reference.begin(), distances_point_reference.end()) && distances_point_reference[i] != 0) {
+               // tolerance += distances_point_reference[i];
+            }
+        }
+        /* On divise le total par le nombre de distances utilisées -2 pour ne pas compter
+        la distance avec lui même et la distance avec le point le plus éloigné*/
+        //tolerance /= coord_intersections.size() - 2;
+        // Plus la tolérance est basse, moins il y a fd'erreur
+        qDebug() << "Erreur : " << tolerance << " m\n";
+        std::vector<vector<double>> coordonnees_finale;
+        // On récupère une liste des points voisins
+        std::vector<int> points_voisins = voisins(table_distance[point_moyen(table_distance)], tolerance*1.5);
+        for (int i = 0; i < points_voisins.size(); i++) {
+            // On ajoute au vecteur coord_finale toutes les coordonnées des intersections gardées
+            coordonnees_finale.push_back(coord_intersections[points_voisins[i]]);
+        }
+        // On fait la moyenne des coordonnées des intersections gardées
+        std::vector<double> resultat = moyenne_coord(coordonnees_finale);
+    }
     // S'il y 1 un ou 0 locator, il n'y a pas d'intersection
      if (nombre_locator == 1 || nombre_locator == 0) {
         qDebug() << "Nombre de locator insuffisant !";

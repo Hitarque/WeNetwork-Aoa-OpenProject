@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+
     thread = new refreshthread(this);
     connect(thread,SIGNAL(NumberChanged(int)),this,SLOT(onNumberChanged(int)));
     thread->start();
@@ -72,7 +73,6 @@ void MainWindow::onNumberChanged(int i){
     for(int i=0;i<database::GetInstance().returnlocatornumber();i++){
             Locator a = database::GetInstance().returnlocator(i);
             ui->listWidget->addItem(a.name + " IP: "+a.ip + " Locate in ("+QString::number(a.posx)+" M,"+QString::number(a.posy)+"M)");
-
             QGraphicsEllipseItem *b= scene->addEllipse(a.posx*20,a.posy*20,10,10,outlinePen);
                QGraphicsTextItem *c=scene->addText(a.name+"\n IP:"+a.ip, QFont("Arial", 10) );
                c->setPos(a.posx*20, a.posy*20);
@@ -128,7 +128,6 @@ void MainWindow::onNumberChanged(int i){
                     database::GetInstance().setnewposasset(database::GetInstance().returnlocator(0).returnasset(0).name,result[0],result[1]);
                     for(int i=0;i<database::GetInstance().returnassetnumber();i++){
                             Asset ass=database::GetInstance().returnasset(i);
-
                             QGraphicsEllipseItem *b= scene->addEllipse(ass.posx*20,ass.posy*20,10,10,outlinePen);
                                QGraphicsTextItem *c=scene->addText(ass.name+"\n X:"+QString::number(ass.posx)+"Y:"+QString::number(ass.posy), QFont("Arial", 10) );
                                c->setPos(ass.posx*20, ass.posy*20);
@@ -137,11 +136,7 @@ void MainWindow::onNumberChanged(int i){
                                datalog.append({dateTime.toString("yyyy-MM-dd HH:mm:ss"),QString::number(ass.posx),QString::number(ass.posy)});
                     }
 
-        }
-
-
-}
-
+}}
 
 void MainWindow::on_listWidget_itemSelectionChanged()
 {
@@ -204,10 +199,10 @@ void MainWindow::on_pushButton_5_clicked()
                             database::GetInstance().modifylocatorassets(1,topic.name().mid(37,20),"",subStringaz.toDouble(),subStringelev.toDouble());
                              qDebug()<<"[Mainwindow.cpp]Dataaded 1";
                     }
-//                    if( topic.name().indexOf(locatortopic[2]) >= 0){
-//                            database::GetInstance().modifylocatorassets(2,topic.name().mid(37,20),"",subStringaz.toDouble(),subStringelev.toDouble());
-//                             qDebug()<<"[Mainwindow.cpp]Dataaded 2";
-//                    }
+                    if( topic.name().indexOf(locatortopic[2]) >= 0){
+                            database::GetInstance().modifylocatorassets(2,topic.name().mid(37,20),"",subStringaz.toDouble(),subStringelev.toDouble());
+                             qDebug()<<"[Mainwindow.cpp]Dataaded 2";
+                    }
 //                    if( topic.name().indexOf(locatortopic[3]) >= 0){
 //                            database::GetInstance().modifylocatorassets(3,topic.name().mid(37,20),"",subStringaz.toDouble(),subStringelev.toDouble());
 
