@@ -1,5 +1,7 @@
+/*Fait par Youen MAUFROY*/
 #include "code_distance.h"
 #include "QDebug"
+
 
 Code_distance::Code_distance(){}
 Code_distance::~Code_distance(){}
@@ -21,12 +23,12 @@ vector<double> Code_distance::intersection(double x_1, double y_1, double angle_
     }
     /* Formule pour obtenir les coordonnées de l'intersection de deux droites
     sachant qu'une droite est générée à partir d'un point et d'un angle */
-    qDebug()<<"Radian angle 1"<<radians(angle_1);
-    qDebug()<<"Radian angle 2"<<radians(angle_2);
     double xf = (y_2 - y_1 + tan(radians(angle_1)) * x_1 - tan(radians(angle_2)) * x_2) /
         (tan(radians(angle_1)) - tan(radians(angle_2)));
     double yf = tan(radians(angle_1)) * (xf - x_1) + y_1;
-    std::vector<double> position = { xf, yf };
+    double verif = quarter_verif({xf, yf, x_1, y_1,angle_1, x_2, y_2,angle_2 });
+    std::vector<double> position = { xf, yf , verif };
+    cout << "nouvelle inter : (" << position[0] << "," << position[1] << ") " << position[2] << "\n";
     return position;
 }
 
@@ -39,16 +41,88 @@ vector<double> Code_distance::moyenne_coord(vector<vector<double>> coordonnees) 
     double total_y = 0;
     // Pour chaque élément du vecteur d'entrée, on ajoute la valeur de la coordonnée correspondante
     for (int i = 0; i < length; i++) {
-        total_x += coordonnees[i][0];
-        total_y += coordonnees[i][1];
+        if (coordonnees[i][2] == 0) {
+            // Si l'intersection a une verif a 0, on ne l'ajoute pas dans la moyenne
+            length = length-1;
+        }
+        else {
+            total_x += coordonnees[i][0];
+            total_y += coordonnees[i][1];
+        }
     }
     // On fait la moyenne des coordonées
     total_x = total_x / length;
     total_y = total_y / length;
     std::vector<double> total = { total_x, total_y };
     // Affiche le résultat qui correspond aux coordonnées de l'asset
-    qDebug() << "[*] Coordonnées de l'asset : (" << total[0] << "," << total[1] << ")\n";
+    //qDebug() << "[*] Coordonnées de l'asset : (" << total[0] << "," << total[1] << ")\n";
     return total;
+}
+
+/* Ce code permet de transformer les droites en demi droite.
+Puisqu'on sait la direction dans laquelle un locator détecte un asset, on supprime les intersections
+qui sont détéctées à l'inverse de cette direction.
+Prend un array contenant les informations d'une intersection et des deux locators qui la génère
+Rend un double qui est soit 1 soit 0 pour dire si l'intersection est dans la bonne direction (1 = oui)*/
+double Code_distance::quarter_verif(vector<double> intersection) {
+    bool verif1 = false;
+    bool verif2 = false;
+    if (intersection[4] < 0) {
+        intersection[4] = 360 + intersection[4];
+    }
+    if (intersection[7] < 0) {
+        intersection[7] = 360 + intersection[7];
+    }
+
+    if (0 < intersection[4] && intersection[4] < 90) {
+        if (intersection[2] <= intersection[0] && intersection[3] <= intersection[1]) {
+            verif1 = true;
+        }
+    }
+    if (90 < intersection[4] && intersection[4] < 180) {
+        if (intersection[2] >= intersection[0] && intersection[3] <= intersection[1]) {
+            verif1 = true;
+        }
+    }
+    if (180 < intersection[4] && intersection[4] < 270) {
+        if (intersection[2] >= intersection[0] && intersection[3] >= intersection[1]) {
+            verif1 = true;
+        }
+    }
+    if (270 < intersection[4] && intersection[4] < 360) {
+        if (intersection[2] <= intersection[0] && intersection[3] >= intersection[1]) {
+            verif1 = true;
+        }
+    }
+
+    if (0 < intersection[7] && intersection[7] < 90) {
+        if (intersection[5] <= intersection[0] && intersection[6] <= intersection[1]) {
+            verif2 = true;
+        }
+    }
+    if (90 < intersection[7] && intersection[7] < 180) {
+        if (intersection[5] >= intersection[0] && intersection[6] <= intersection[1]) {
+            verif2 = true;
+        }
+    }
+    if (180 < intersection[7] && intersection[7] < 270) {
+        if (intersection[5] >= intersection[0] && intersection[6] >= intersection[1]) {
+            verif2 = true;
+        }
+    }
+    if (270 < intersection[7] && intersection[7] < 360) {
+        if (intersection[5] <= intersection[0] && intersection[6] >= intersection[1]) {
+            verif2 = true;
+        }
+    }
+
+    // On vérifie que la direction est bonne pour les deux locators
+    if (verif1 == true && verif2 == true) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
 
 
@@ -136,54 +210,54 @@ vector<double> Code_distance::asset_position(std::vector<vector<double>> data_lo
     // On enlève de data_locator tous les locators sans angle entrés dans invalid_data
     std::reverse(invalid_data.begin(), invalid_data.end());
     for (int i = 0; i < invalid_data.size(); i++) {
-        qDebug() << "[*] Les données du locator " << invalid_data[i] << " ne sont pas valides.\n";
+        //qDebug() << "[*] Les données du locator " << invalid_data[i] << " ne sont pas valides.\n";
         data_locator.erase(data_locator.begin() + invalid_data[i]);
     }
     // Il ne resque que les locators avec un angle valide, on change le nombre de locator
     nombre_locator = data_locator.size();
 
     // S'il n'y a que deux locators, il n'y a pas besoin de process le résultat puisqu'il n'y a qu'une intersection
- //   if (nombre_locator >= 3) {
-//        // On calcul toutes les intersections à l'aide des datas entrées pour chaque locator
-//        for (int i = 0; i < nombre_locator - 1; i++) {
-//            for (int j = i + 1; j < nombre_locator; j++) {
-//                std::vector<double> new_intersection = intersection(
-//                    data_locator[i][0], data_locator[i][1], data_locator[i][2],
-//                    data_locator[j][0], data_locator[j][1], data_locator[j][2]);
-//                coord_intersections.push_back(new_intersection);
-//            }
-//        }
-//        // On récupère toutes les distances entre chaque intersection
-//        table_distance = distance(coord_intersections);
-//        double tolerance = 0;
-//        // On récupère un vecteur avec es distances entre le point de référence et les autres
-//        std::vector<double> distances_point_reference = table_distance[point_moyen(table_distance)];
-//        size_t length = distances_point_reference.size();
-//        /* On calcul la tolérance en faisant la moyenne de toutes les distances du point de référence
-//        On ne prend pas en compte le point le plus éloigné car ce point créer souvent beaucoup d'erreur */
-//        for (int i = 0; i < length; i++) {
-//            if (distances_point_reference[i] != *std::max_element(distances_point_reference.begin(), distances_point_reference.end()) && distances_point_reference[i] != 0) {
-//                tolerance += distances_point_reference[i];
-//            }
-//        }
-//        /* On divise le total par le nombre de distances utilisées -2 pour ne pas compter
-//        la distance avec lui même et la distance avec le point le plus éloigné*/
-//        tolerance /= coord_intersections.size() - 2;
-//        // Plus la tolérance est basse, moins il y a d'erreur
-//        qDebug() << "Erreur : " << tolerance << " m\n";
-//        std::vector<vector<double>> coordonnees_finale;
-//        // On récupère une liste des points voisins
-//        std::vector<int> points_voisins = voisins(table_distance[point_moyen(table_distance)], tolerance * 1.5);
-//        for (int i = 0; i < points_voisins.size(); i++) {
-//            // On ajoute au vecteur coord_finale toutes les coordonnées des intersections gardées
-//            coordonnees_finale.push_back(coord_intersections[points_voisins[i]]);
-//        }
-//        // On fait la moyenne des coordonnées des intersections gardées
-//        std::vector<double> resultat = moyenne_coord(coordonnees_finale);
-//    }
+    if (nombre_locator >= 3) {
+        // On calcul toutes les intersections à l'aide des datas entrées pour chaque locator
+        for (int i = 0; i < nombre_locator - 1; i++) {
+            for (int j = i + 1; j < nombre_locator; j++) {
+                std::vector<double> new_intersection = intersection(
+                    data_locator[i][0], data_locator[i][1], data_locator[i][2],
+                    data_locator[j][0], data_locator[j][1], data_locator[j][2]);
+                coord_intersections.push_back(new_intersection);
+            }
+        }
+        // On récupère toutes les distances entre chaque intersection
+        table_distance = distance(coord_intersections);
+        double tolerance = 1.5;
+        // On récupère un vecteur avec es distances entre le point de référence et les autres
+        std::vector<double> distances_point_reference = table_distance[point_moyen(table_distance)];
+        size_t length = distances_point_reference.size();
+        /* On calcul la tolérance en faisant la moyenne de toutes les distances du point de référence
+        On ne prend pas en compte le point le plus éloigné car ce point créer souvent beaucoup d'erreur */
+        for (int i = 0; i < length; i++) {
+            if (distances_point_reference[i] != *std::max_element(distances_point_reference.begin(), distances_point_reference.end()) && distances_point_reference[i] != 0) {
+               // tolerance += distances_point_reference[i];
+            }
+        }
+        /* On divise le total par le nombre de distances utilisées -2 pour ne pas compter
+        la distance avec lui même et la distance avec le point le plus éloigné*/
+        //tolerance /= coord_intersections.size() - 2;
+        // Plus la tolérance est basse, moins il y a fd'erreur
+        //qDebug() << "Erreur : " << tolerance << " m\n";
+        std::vector<vector<double>> coordonnees_finale;
+        // On récupère une liste des points voisins
+        std::vector<int> points_voisins = voisins(table_distance[point_moyen(table_distance)], tolerance*1.5);
+        for (int i = 0; i < points_voisins.size(); i++) {
+            // On ajoute au vecteur coord_finale toutes les coordonnées des intersections gardées
+            coordonnees_finale.push_back(coord_intersections[points_voisins[i]]);
+        }
+        // On fait la moyenne des coordonnées des intersections gardées
+        std::vector<double> resultat = moyenne_coord(coordonnees_finale);
+    }
     // S'il y 1 un ou 0 locator, il n'y a pas d'intersection
      if (nombre_locator == 1 || nombre_locator == 0) {
-        qDebug() << "Nombre de locator insuffisant !";
+        //qDebug() << "Nombre de locator insuffisant !";
         resultat = { 1,1 };
     }
     // S'il n'y a que deux locator, on affiche les coordonnées de la seule intersection
@@ -198,8 +272,8 @@ vector<double> Code_distance::asset_position(std::vector<vector<double>> data_lo
             }
         }
         resultat = moyenne_coord(coord_intersections);
-        qDebug() << "Calcul de l'erreur impossible avec 2 locators";
+        //qDebug() << "Calcul de l'erreur impossible avec 2 locators";
     }
-    qDebug()<<"position trouvé"<<resultat[1]<<" "<<resultat[2];
+    //qDebug()<<"position trouvé"<<resultat[1]<<" "<<resultat[2];
     return resultat;
 }

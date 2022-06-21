@@ -1,8 +1,10 @@
+/*Fait par Hugo FABRE*/
 #include "dialogmodifylocator.h"
 #include "ui_dialogmodifylocator.h"
 
 #include "database.h"
 
+/*Setup ui de la page de modification + insertion des données pour l'affichage, enregistré dans database*/
 Dialogmodifylocator::Dialogmodifylocator(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialogmodifylocator)
@@ -18,11 +20,13 @@ Dialogmodifylocator::Dialogmodifylocator(QWidget *parent) :
     ui->doubleSpinBox_2->setValue(a.posy);
 }
 
+/*Destruction de l'UI*/
 Dialogmodifylocator::~Dialogmodifylocator()
 {
     delete ui;
 }
 
+/*Mise a jour des données enregistré dans database*/
 void Dialogmodifylocator::on_buttonBox_accepted()
 {
    database::GetInstance().modifylocator(database::GetInstance().returncurrentlocator(), ui->textEdit->toPlainText(), ui->textEdit_2->toPlainText(),ui->doubleSpinBox->value(),ui->doubleSpinBox_2->value());

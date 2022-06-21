@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1294</width>
-    <height>838</height>
+    <width>1291</width>
+    <height>985</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>WeNetworkAoALocator</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBox">
@@ -20,7 +20,7 @@
       <x>650</x>
       <y>10</y>
       <width>621</width>
-      <height>391</height>
+      <height>471</height>
      </rect>
     </property>
     <property name="title">
@@ -30,7 +30,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>330</y>
+       <y>180</y>
        <width>601</width>
        <height>51</height>
       </rect>
@@ -71,51 +71,40 @@
        <x>10</x>
        <y>20</y>
        <width>601</width>
-       <height>281</height>
+       <height>151</height>
       </rect>
      </property>
     </widget>
-   </widget>
-   <widget class="QGraphicsView" name="graphicsView">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>30</y>
-      <width>471</width>
-      <height>541</height>
-     </rect>
-    </property>
-    <property name="interactive">
-     <bool>true</bool>
-    </property>
-    <property name="sceneRect">
-     <rectf>
-      <x>0.000000000000000</x>
-      <y>0.000000000000000</y>
-      <width>0.000000000000000</width>
-      <height>0.000000000000000</height>
-     </rectf>
-    </property>
-    <property name="rubberBandSelectionMode">
-     <enum>Qt::IntersectsItemBoundingRect</enum>
-    </property>
-   </widget>
-   <widget class="QListWidget" name="listWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>660</x>
-      <y>410</y>
-      <width>601</width>
-      <height>221</height>
-     </rect>
-    </property>
+    <widget class="QListWidget" name="listWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>250</y>
+       <width>601</width>
+       <height>201</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>230</y>
+       <width>111</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Locator et data</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>600</y>
-      <width>481</width>
+      <x>650</x>
+      <y>790</y>
+      <width>621</width>
       <height>141</height>
      </rect>
     </property>
@@ -155,6 +144,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_6">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>publish</string>
         </property>
@@ -192,22 +184,85 @@
      </property>
     </widget>
    </widget>
-   <widget class="QListWidget" name="listWidget_3">
+   <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>630</y>
-      <width>601</width>
-      <height>111</height>
+      <x>650</x>
+      <y>490</y>
+      <width>621</width>
+      <height>171</height>
      </rect>
     </property>
+    <property name="title">
+     <string>List Asset visible</string>
+    </property>
+    <widget class="QListWidget" name="listWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>601</width>
+       <height>141</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>601</width>
+      <height>941</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Affichage 2D</string>
+    </property>
+    <widget class="QGraphicsView" name="graphicsView">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>40</y>
+       <width>541</width>
+       <height>811</height>
+      </rect>
+     </property>
+     <property name="interactive">
+      <bool>true</bool>
+     </property>
+     <property name="sceneRect">
+      <rectf>
+       <x>0.000000000000000</x>
+       <y>0.000000000000000</y>
+       <width>0.000000000000000</width>
+       <height>0.000000000000000</height>
+      </rectf>
+     </property>
+     <property name="rubberBandSelectionMode">
+      <enum>Qt::IntersectsItemBoundingRect</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>211</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Les unitées sont en Metres</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_8">
     <property name="geometry">
      <rect>
-      <x>1120</x>
-      <y>750</y>
-      <width>141</width>
+      <x>650</x>
+      <y>940</y>
+      <width>621</width>
       <height>31</height>
      </rect>
     </property>
@@ -215,18 +270,74 @@
      <string>Fermer le programme</string>
     </property>
    </widget>
+   <widget class="QGroupBox" name="groupBox_5">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>670</y>
+      <width>621</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>ADD TO LOG:</string>
+    </property>
+    <widget class="QPushButton" name="pushButton_9">
+     <property name="geometry">
+      <rect>
+       <x>430</x>
+       <y>40</y>
+       <width>171</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>SAVE IN A CSV</string>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1294</width>
+     <width>1291</width>
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu_tools">
+    <property name="title">
+     <string>&amp;tools</string>
+    </property>
+    <addaction name="action_Options"/>
+    <addaction name="action_Fermer"/>
+   </widget>
+   <widget class="QMenu" name="menu_info">
+    <property name="title">
+     <string>&amp;info</string>
+    </property>
+    <addaction name="action_info"/>
+   </widget>
+   <addaction name="menu_tools"/>
+   <addaction name="menu_info"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_Options">
+   <property name="text">
+    <string>&amp;Options</string>
+   </property>
+  </action>
+  <action name="action_Fermer">
+   <property name="text">
+    <string>&amp;Fermer</string>
+   </property>
+  </action>
+  <action name="action_info">
+   <property name="text">
+    <string>&amp;info</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

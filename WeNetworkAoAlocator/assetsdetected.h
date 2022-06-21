@@ -2,6 +2,7 @@
 #define ASSETSDETECTED_H
 
 #include <QString>
+#include <QList>
 
 class assetsdetected
 {
@@ -10,9 +11,13 @@ public:
 
     QString name;
     QString date;
-    double azim;
-    double elev;
+    double azim=0;
+    double elev=0;
 
+     QList<double> listazimuth;
+
+    void addtolist(double az);
+    double calcul();
     void setname(QString na){
     name=na;
     }
@@ -26,5 +31,6 @@ public:
     elev=el;
     }
 };
+int compare(const void* a, const void* b);
 
 #endif // ASSETSDETECTED_H

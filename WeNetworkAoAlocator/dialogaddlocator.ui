@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>264</width>
-    <height>260</height>
+    <height>267</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Addlocator</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -33,7 +33,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>0</y>
+     <y>10</y>
      <width>231</width>
      <height>201</height>
     </rect>

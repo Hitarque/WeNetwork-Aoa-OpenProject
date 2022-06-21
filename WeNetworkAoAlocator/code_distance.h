@@ -28,4 +28,5 @@ public:
     __int64 point_moyen(vector<vector<double>> distances);
     vector<int> voisins(vector<double> distances, double tolerance);
     vector<double> asset_position(vector<vector<double>> data_locator);
+    double quarter_verif(vector<double> intersection);
 };

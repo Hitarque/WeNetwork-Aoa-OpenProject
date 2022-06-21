@@ -14,7 +14,10 @@ SOURCES += \
     code_distance.cpp \
     database.cpp \
     dialogaddlocator.cpp \
+    dialoginfos.cpp \
     dialogmodifylocator.cpp \
+    dialogoptions.cpp \
+    jsonparser.cpp \
     locator.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -27,7 +30,10 @@ HEADERS += \
     code_distance.h \
     database.h \
     dialogaddlocator.h \
+    dialoginfos.h \
     dialogmodifylocator.h \
+    dialogoptions.h \
+    jsonparser.h \
     locator.h \
     mainwindow.h \
     refreshthread.h
@@ -35,10 +41,14 @@ HEADERS += \
 
 FORMS += \
     dialogaddlocator.ui \
+    dialoginfos.ui \
     dialogmodifylocator.ui \
+    dialogoptions.ui \
     mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES +=

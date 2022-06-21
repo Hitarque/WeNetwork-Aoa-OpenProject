@@ -8,6 +8,8 @@
 #include "dialogaddlocator.h"
 #include "dialogmodifylocator.h"
 #include "code_distance.h"
+#include "dialoginfos.h"
+#include "dialogoptions.h"
 
 #include <QDebug>
 
@@ -16,6 +18,8 @@
 #include <QGraphicsItem>
 #include <QList>
 #include <QFile>
+
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,7 +32,7 @@ class MainWindow : public QMainWindow
 
 public:
     QList<QList<QString>> datalog;
-    QString locatortopic[4] = {"silabs/aoa/angle/ble-pd-0C4314F02B3A","silabs/aoa/angle/ble-pd-0C4314EF5CEC","",""};
+    QString locatortopic[4] = {"silabs/aoa/angle/ble-pd-0C4314F02B3A","silabs/aoa/angle/ble-pd-0C4314EF5CEC","silabs/aoa/angle/ble-pd-0C4314EF67A4","silabs/aoa/angle/ble-pd-0C4314EF67C4"};
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     refreshthread *thread;
@@ -37,10 +41,13 @@ public:
     QGraphicsScene *scene;
     QList<QGraphicsEllipseItem> *locatordisplay;
 
-    void setUrl(const QUrl &url); // ie ws://broker.hivemq.com:8000/mqtt
+    void setUrl(const QUrl &url);
     void setTopic(const QString &topic);
     void setVersion(int v);
     void myMessageHandler();
+    void myMessageHandler1();
+
+    QMenuBar * createMenus();
 
 public slots:
   void onNumberChanged(int i);
@@ -62,6 +69,16 @@ private slots:
     void on_pushButton_7_clicked();
 
     void on_pushButton_8_clicked();
+
+    void on_action_Options_triggered();
+
+    void on_action_info_triggered();
+
+    void on_action_Fermer_triggered();
+
+    void on_pushButton_10_clicked();
+
+    void on_pushButton_9_clicked();
 
 private:
     Ui::MainWindow *ui;
