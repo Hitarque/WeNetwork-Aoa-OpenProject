@@ -18,5 +18,3 @@ The potential reasons for this problem are the following:
 This project is licensed under an open source license by We Network, it uses parts of Silicon labs open source code that are not intended for commercial use.
 Please ask before using it for commercial purpose!
 
-
-Translated with www.DeepL.com/Translator (free version)
