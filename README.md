@@ -1,4 +1,4 @@
-# WeNetwork Aoa OpenProject
+# WeNetwork AoA OpenProject
 This project is a basic system of indoor geolocation by bluetooth AoA. It is based on the use of silicon labs locators (beacons) and assets to search.
 On this project the Aoa_locator system is a test code proposed by SiliconLabs to provide a return of angle of arrival calculations through the Ethernet/USB (NCP) and to send it to a Mqtt broker.
 
