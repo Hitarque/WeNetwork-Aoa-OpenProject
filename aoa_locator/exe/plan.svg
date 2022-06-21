@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X6 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="76.2mm" height="197.084mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 7539 19498"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:black;stroke-width:19.7861}
+    .fil0 {fill:none}
+    .fil1 {fill:black;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g id="Plan_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_774117488">
+   <polygon class="fil0 str0" points="1474,10 7529,10 7529,2401 1474,2401 "/>
+   <polygon class="fil0 str0" points="10,3656 3178,3656 3178,19488 10,19488 "/>
+   <polygon class="fil0 str0" points="3178,17555 5968,17555 5968,19488 3178,19488 "/>
+   <polygon class="fil0 str0" points="4204,10103 7529,10103 7529,13971 4204,13971 "/>
+   <polygon class="fil0 str0" points="3836,13984 7529,13984 7529,16436 3836,16436 "/>
+   <polygon class="fil0 str0" points="7529,3620 4231,3620 4231,8904 7529,8904 "/>
+   <polygon class="fil0 str0" points="10,19488 7529,19488 7529,10 10,10 "/>
+  </g>
+  <polyline class="fil0 str0" points="678,374 712,345 711,345 328,345 328,699 329,701 351,655 "/>
+  <polygon class="fil1" points="425,290 502,173 432,65 485,65 529,132 574,65 627,65 556,173 634,290 579,290 529,214 479,290 "/>
+  <polygon class="fil1" points="161,635 161,540 78,410 131,410 185,499 236,410 289,410 206,540 206,635 "/>
+ </g>
+</svg>
